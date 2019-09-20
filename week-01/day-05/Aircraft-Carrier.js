@@ -18,8 +18,9 @@ class Aircraft {
     }
 
     refill(number) {
-        number -= (this.maxAmmo - this.currentAmmo);
-        return number;
+        //refill keeps using the initial stored ammo as the input value
+        console.log(number - (this.maxAmmo - this.currentAmmo));
+        return number -= (this.maxAmmo - this.currentAmmo);
     }
 
     getType() {
@@ -31,7 +32,7 @@ class Aircraft {
     }
 
     isPriority() {
-        return this.type === 'F35' ? ture : false;
+        return (this.type === 'F35') ? true : false;
     }
 }
 
@@ -47,7 +48,8 @@ class Carrier {
     }
 
     fill() {
-        this.carrier.forEach(element => element.refill(this.storeAmmo));
+        this.carrier.filter(element => element.isPriority()).forEach(element => element.refill(this.storeAmmo));
+        this.carrier.filter(element => !element.isPriority()).forEach(element => element.refill(this.storeAmmo));
     }
 
     fight(carrier) {
@@ -68,7 +70,7 @@ class Carrier {
 }
 
 let carrier = new Carrier(300, 2000);
-let carrier1 = new Carrier(200, 1000);
+let carrier1 = new Carrier(100, 3000);
 
 carrier.add('F16');
 carrier.add('F16');
@@ -80,11 +82,12 @@ carrier1.add('F35');
 carrier1.add('F35');
 carrier1.add('F35');
 
-carrier.getStatus();
 
 carrier1.fight(carrier);
+carrier.fight(carrier1);
 
+//carrier1.getStatus();
 carrier1.fill();
 
-carrier.getStatus();
-carrier1.getStatus();
+//carrier.getStatus();
+//carrier1.getStatus();
