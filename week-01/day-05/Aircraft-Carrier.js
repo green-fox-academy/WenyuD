@@ -18,9 +18,17 @@ class Aircraft {
     }
 
     refill(number) {
-        //refill keeps using the initial stored ammo as the input value
-        console.log(number - (this.maxAmmo - this.currentAmmo));
-        return number -= (this.maxAmmo - this.currentAmmo);
+        //refill only when the storedAmmo > 0
+        if (number > 0) {
+            if (number - (this.maxAmmo - this.currentAmmo) >= 0) {
+                number -= (this.maxAmmo - this.currentAmmo);
+                this.currentAmmo += this.maxAmmo - this.currentAmmo;
+            } else if (number - (this.maxAmmo - this.currentAmmo) < 0){
+                this.currentAmmo = number;
+                number = 0;
+            }
+        }
+        return number;
     }
 
     getType() {
@@ -32,7 +40,7 @@ class Aircraft {
     }
 
     isPriority() {
-        return (this.type === 'F35') ? true : false;
+        return this.type === 'F35';
     }
 }
 
@@ -48,14 +56,30 @@ class Carrier {
     }
 
     fill() {
-        this.carrier.filter(element => element.isPriority()).forEach(element => element.refill(this.storeAmmo));
-        this.carrier.filter(element => !element.isPriority()).forEach(element => element.refill(this.storeAmmo));
+        //fill F35 first
+        this.carrier.forEach(element => {
+            if (element.isPriority()) {
+                this.storeAmmo = element.refill(this.storeAmmo);
+            }
+        })
+        //this.carrier.filter(element => element.isPriority()).forEach(element => this.storeAmmo = element.refill(this.storeAmmo));
+        //fill F16 when storeAmmo > 0
+        if (this.storeAmmo > 0) {
+            this.carrier.filter(element => !element.isPriority()).forEach(element => this.storeAmmo = element.refill(this.storeAmmo));
+        }
     }
 
     fight(carrier) {
         this.allDamage = 0;
-        this.carrier.forEach(element => { this.allDamage += element.fight()});
-        (carrier.healthPoint - this.allDamage) > 0 ? carrier.healthPoint -= this.allDamage : carrier.healthPoint = 0;
+        //if this carrier already dead then it won't be able to fight
+        if (this.healthPoint === 0) {
+            console.log('You are dead :(');
+        } if (carrier.healthPoint === 0) {
+            console.log('It\'s dead Jim :(');
+        } else {
+            this.carrier.forEach(element => { this.allDamage += element.fight()});
+            (carrier.healthPoint - this.allDamage) > 0 ? carrier.healthPoint -= this.allDamage : carrier.healthPoint = 0;
+        }
     }
 
     getStatus() {
@@ -70,7 +94,7 @@ class Carrier {
 }
 
 let carrier = new Carrier(300, 2000);
-let carrier1 = new Carrier(100, 3000);
+let carrier1 = new Carrier(30, 3000);
 
 carrier.add('F16');
 carrier.add('F16');
@@ -88,6 +112,8 @@ carrier.fight(carrier1);
 
 //carrier1.getStatus();
 carrier1.fill();
+
+console.log(carrier1);
 
 //carrier.getStatus();
 //carrier1.getStatus();
