@@ -12,7 +12,7 @@ class ArrayStack implements Stack {
     }
 
     peek() {
-        return this.array[0];
+        return this.array[this.array.length-1];
     }
 
     push(input: string) {
@@ -26,9 +26,9 @@ class ArrayStack implements Stack {
 
 let arrayStack = new ArrayStack();
 console.log(arrayStack.empty());
-console.log(arrayStack.push(`${Math.random()}`));
-console.log(arrayStack.push(`${Math.random()}`));
-console.log(arrayStack.push(`${Math.random()}`));
+arrayStack.push(`${Math.random()}`);
+arrayStack.push(`${Math.random()}`);
+arrayStack.push(`${Math.random()}`);
 console.log(arrayStack.peek());
 console.log(arrayStack.pop());
 console.log(arrayStack.peek());

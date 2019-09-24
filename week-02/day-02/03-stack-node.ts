@@ -3,51 +3,51 @@ import Stack from './Interfaces/Stack';
 import {newNode} from './Interfaces/Node';
 
 class StackNode implements Stack {
-    head: newNode;
+    tail: newNode;
     length: number;
     constructor() {
-        this.head = null;
+        this.tail = null;
         this.length = 0;
     }
 
     empty() {
-        return this.head === null;
+        return this.tail === null;
     }
 
     peek() {
-        return this.head.value;
+        if (!this.empty()){
+            return this.tail.value;
+        } else {
+            return null;
+        }
     }
 
     push(value: string) {
-        let lastNode = this.head;
-        if (this.head === null) {
-            this.head = new newNode(value);
-        } else {
-            for (let i = 0; i < this.length -1; i++) {
-                lastNode = lastNode.next;
-            }
-            lastNode.next = new newNode(value);
-        }
+        let temp = new newNode(value);
+        temp.next = this.tail;
+        this.tail = temp;
         this.length++;
     }
 
     pop() {
-        let lastNode = this.head;
-        for (let i = 0; i < this.length - 1; i++) {
-            lastNode = lastNode.next;
+        if (!this.empty()) {
+            let temp = this.tail.value;
+            this.tail = this.tail.next;
+            return temp;    
+        } else {
+            return null;
         }
-        let popedNode = lastNode.value;
-        lastNode = null;
-        this.length--;
-        return popedNode;
     }
 }
 
-let stackNode = new StackNode();
-console.log(stackNode.empty());
-stackNode.push('a');
-stackNode.push('b');
-stackNode.push('c');
-stackNode.push('d');
-console.log(stackNode.peek());
-console.log(stackNode.pop());
+// let stackNode = new StackNode();
+// console.log(stackNode.empty());
+// stackNode.push('a');
+// stackNode.push('b');
+// stackNode.push('c');
+// stackNode.push('d');
+// console.log(stackNode.peek());
+// console.log(stackNode.pop());
+// console.log(stackNode.peek());
+
+export default StackNode;
