@@ -10,34 +10,6 @@ class BinaryTree implements Tree {
         this.size = 0;
     }
 
-    
-    // insert(node: BinaryTreeNode, value: string) {
-    //     if (node.nextLeft !== undefined) {
-    //         this.insert(node.nextLeft, value);
-    //     } else {
-    //         node.nextLeft = new BinaryTreeNode(value);
-    //     }
-    // }
-    // delete(node: BinaryTreeNode, value: string) {
-    //     if (node !== undefined && node.root !== value) {
-    //         this.delete(node.nextLeft, value);
-    //     } else if (node !== undefined && node.root === value) {
-    //         node = node.nextLeft;
-    //         this.size--;
-    //     } else {
-    //         return 'This value is not in the tree.';
-    //     }
-    // }
-    // searchNode(node: BinaryTreeNode, value: string) {
-    //     if (node !== undefined && node.root !== value) {
-    //         this.searchNode(node.nextLeft, value);
-    //     } else if (node.root === value){
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
     empty() {
         return this.root === null;
     }
@@ -56,16 +28,6 @@ class BinaryTree implements Tree {
         this.size++;
     }
 
-    print(node: BinaryTreeNode): void{
-        if(node.nextLeft !== null){
-            this.print(node.nextLeft);
-        }
-        console.log(node.data);
-        if(node.nextRight !== null){
-            this.print(node.nextRight);
-        }
-    }
-
     remove(value: string) {
         if (this.root === null) {
             console.log('This tree is empty.');
@@ -73,11 +35,11 @@ class BinaryTree implements Tree {
             this.root = this.root.nextLeft;
         } else {
             let current = this.root;
-            let parent = current;
-            let temp;
-            while(current.nextLeft !== null) {
+            let parent = this.root;
+            while(current !== null) {
                 if (current.data === value) {
-                    parent = current.nextLeft;
+                    parent.nextLeft = current.nextLeft;
+                    break;
                 }
                 parent = current;
                 current = current.nextLeft;
@@ -87,20 +49,18 @@ class BinaryTree implements Tree {
     }
 
     search(value: string) {
-        return true;
-        // if (this.empty()) {
-        //     return false;
-        // } else {
-        //     let current = this.root;
-        //     while(!current.nextLeft.empty()) {
-        //         if (current.nextLeft.root !== value) {
-        //             current = current.nextLeft;
-        //         } else {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
+        if (this.root === null) {
+            return false;
+        } else {
+            let current = this.root;
+            while(current !== null) {
+                if (current.data === value) {
+                    return true;
+                }
+                current = current.nextLeft;
+            }
+            return false;
+        }
     }
 }
 
@@ -111,6 +71,6 @@ binaryTree.add('b');
 binaryTree.add('c');
 binaryTree.add('d');
 // console.log(binaryTree);
-binaryTree.remove('c');
-binaryTree.print(binaryTree.root);
-//console.log(binaryTree.search('b'));
+binaryTree.remove('d');
+//binaryTree.print(binaryTree.root);
+console.log(binaryTree.search(''));
