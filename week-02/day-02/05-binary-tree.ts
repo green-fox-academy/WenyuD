@@ -46,6 +46,7 @@ class BinaryTree implements Tree {
             }
             this.size--;
         }
+        console.log(this.root);
     }
 
     search(value: string) {
@@ -71,6 +72,6 @@ binaryTree.add('b');
 binaryTree.add('c');
 binaryTree.add('d');
 // console.log(binaryTree);
-binaryTree.remove('d');
+binaryTree.remove('c');
 //binaryTree.print(binaryTree.root);
-console.log(binaryTree.search(''));
+console.log(binaryTree.search('c'));
