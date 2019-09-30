@@ -25,6 +25,7 @@
     width: 50px;
     background-color: rgb(39, 114, 212);
     margin: 0 0.5em;
+    vertical-align: top;
 }
 .box-container:last-child > .box {
     background-color: rgb(161, 48, 226);
