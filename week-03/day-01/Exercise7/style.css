@@ -1,0 +1,22 @@
+#title {
+    font-size: 20px;
+}
+
+/* Exercise 7 */
+#exercise-7-container {
+    margin-left: 2em;
+    width: 20em;
+}
+.container > .asteroid {
+    border: 1px green solid;
+}
+.asteroid {
+    font-weight: bold;
+}
+.big {
+    color: blue;
+}
+p {
+    font-weight: lighter !important;
+    background-color: yellow;
+}

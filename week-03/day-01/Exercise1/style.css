@@ -1,0 +1,18 @@
+#title {
+    font-size: 20px;
+    margin-left: 2em;
+}
+
+/* Exercise 1 */
+.Exercise-1 {
+    display: flex;
+    height: 2em;
+    width: 6em;
+    background-color: rgb(38, 93, 197);
+    font-size: 36px;
+    margin: 1em;
+    border: 5px #2bbbe7 solid;
+    padding: 0.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #0e4f63;
+}

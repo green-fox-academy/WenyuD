@@ -1,0 +1,20 @@
+#title {
+    font-size: 20px;
+}
+
+/* Exercise 6 */
+#exercise-6-container {
+    margin-left: 2em;
+    width: 20em;
+}
+#subtitle {
+    color: orange;
+}
+p {
+    display: block;
+    border-style: solid;
+    border-width: 0 0 0 2px;
+    padding-left: 10px;
+    font-size: 18px;
+}
+

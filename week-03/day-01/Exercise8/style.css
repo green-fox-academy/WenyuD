@@ -1,0 +1,31 @@
+#title {
+    font-size: 20px;
+}
+
+/* Exercise 8 */
+#exercise-8-container {
+    margin-left: 2em;
+}
+
+.box-container {
+    display: inline-block;
+    border: 2px rgb(39, 114, 212) solid;
+    padding: 1em;
+}
+.box-container:last-child {
+    margin-top: 1em;
+    display: inline-block;
+    border: 2px rgb(39, 114, 212) solid;
+    background-color: coral;
+    padding: 1em;
+}
+.box {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(39, 114, 212);
+    margin: 0 0.5em;
+}
+.box-container:last-child > .box {
+    background-color: rgb(161, 48, 226);
+}

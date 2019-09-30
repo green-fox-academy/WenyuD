@@ -1,0 +1,32 @@
+#title {
+    font-size: 20px;
+    margin-left: 2em;
+}
+
+/* Exercise 2 */
+#Exercise-2-container {
+    border: #2bbbe7 1em solid;
+    width: 30em;
+    margin-left: 2em;
+}
+.Exercise-2 {
+    display: flex;
+    height: 5em;
+    font-size: 36px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    justify-content: center;
+}
+    #Exercise2-div1 {
+        background-color: rosybrown;
+    }
+    #Exercise2-div2 {
+        background-color: sienna;
+    }
+    #Exercise2-div3 {
+        background-color: khaki;
+    }
+    #Exercise2-div4 {
+        background-color: paleturquoise;
+    }
