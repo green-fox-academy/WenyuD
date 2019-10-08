@@ -1,0 +1,33 @@
+.header {
+    background-color: purple;
+    height: 3.5em;
+    display: flex;
+    align-items: center;
+}
+.nav-link {
+    background-color: cyan;
+    height: 2em;
+    margin-left: 20px;
+}
+    .nav-link1 {
+        width: 100px;
+    }
+    .nav-link2 {
+        width: 70px;
+    }
+    .nav-link3 {
+        width: 80px;
+    }
+
+.main-content {
+    background-color: yellow;
+    width: 70%;
+    height: 100vh;
+}
+
+.side-bar {
+    background-color: green;
+    float: right;
+    width: 30%;
+    height: 100vh;
+}

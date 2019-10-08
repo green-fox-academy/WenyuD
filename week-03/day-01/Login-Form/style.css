@@ -1,0 +1,61 @@
+html {
+    height: 100vh;
+    width: 100%;
+}
+* {
+    margin: 0;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: rgba(226, 223, 223, 0.829);
+}
+
+.form {
+    display: block;
+    width: 30%;
+    margin: auto;
+    padding: 2em;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+    .form-title, .label, .input, #forgot, #submit {
+        position: relative;
+        display: flex;
+        text-transform: uppercase;
+        font-weight: lighter;
+    }
+    .form-title {
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .label {
+        font-size: 10px;
+        margin: 1rem 0 5px 0;
+    }
+    .input {
+        font-size: 10px;
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+        .input:focus {
+            outline-color: green;
+        }
+    #forgot {
+        font-size: 8px;
+        float: right;
+    }
+    #submit {
+        font-size: 10px;
+        margin-top: 40px;
+        background-color: rgb(49, 46, 46);
+        color: white;
+        border: 0;
+        padding: 15px 30px;
+        border-radius: 25px;
+        box-shadow: 0px 2px 5px rgb(146, 145, 145);
+    }
+    
