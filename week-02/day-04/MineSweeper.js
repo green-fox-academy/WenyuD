@@ -1,7 +1,7 @@
 'use strict';
 const readline = require('readline');
 
-// const rl = readline.createInterface(process.stdin, process.stdout);
+const rl = readline.createInterface(process.stdin, process.stdout);
 
 class MineSweeper {
     constructor() {
@@ -23,9 +23,7 @@ class MineSweeper {
 
     layMine(mineNumber) {
         this.drawMap();
-
         
-
         for (let i = 0; i < this.size; i++) {
             this.mineMap.push([]);
             for (let j = 0; j < this.size; j++) {
@@ -45,21 +43,21 @@ class MineSweeper {
 
 let mineSweeper = new MineSweeper();
 // mineSweeper.drawMap();
-mineSweeper.layMine(3);
+// mineSweeper.layMine(3);
 
 
-// rl.question('How big the gameplay should be (n)? ', (size) => {
-//     rl.question('How many mines you\'d like to find (k)? ', (mines) => {
-//         console.log(`${size}, as well as ${mines}`);
-//         for (let i = 0; i < size; i++) {
-//                 mineMap.push([]);
-//             for (let j = 0; j < size; j++) {
-//                 mineMap[i].push('*');
-//             }
-//         }
-//         layMine(mines);
-//         console.log(mineMap);
+rl.question('How big the gameplay should be (n)? ', (size) => {
+    rl.question('How many mines you\'d like to find (k)? ', (mines) => {
+        console.log(`${size}, as well as ${mines}`);
+        for (let i = 0; i < size; i++) {
+                mineSweeper.mineMap.push([]);
+            for (let j = 0; j < size; j++) {
+                mineSweeper.mineMap[i].push('*');
+            }
+        }
+        mineSweeper.layMine(mines);
+        console.log(mineSweeper.mineMap);
 
-//         rl.close();
-//     })
-// });
+        rl.close();
+    })
+});
