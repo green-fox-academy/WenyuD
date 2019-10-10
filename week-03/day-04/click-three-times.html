@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Workshop: EventListeners</title>
+</head>
+<body>
+    <div>
+        <button>Click me!</button>
+        <p></p>
+    </div>
+
+    <script>
+        let button = document.querySelector('button');
+        let clicked = 0;
+        let startTime = Date.now();
+        let printMsg = true;
+
+        button.addEventListener('click', () => {
+            console.log(Date.now() - startTime);
+            clicked += 1;
+            if (clicked === 1 && (Date.now() - startTime < 5000)) {
+                printMsg = false;
+            } else if ((Date.now() - startTime >= 5000) && clicked === 3 && printMsg === true) {
+                document.querySelector('p').textContent = '5 seconds elapsed and clicked 3 times';
+            }
+        });
+    </script>
+</body>
+</html>
