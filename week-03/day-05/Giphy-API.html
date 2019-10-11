@@ -24,7 +24,7 @@
                     let newLi = document.querySelector('ul').appendChild(document.createElement('li'));
                     let newImg = newLi.appendChild(document.createElement('img'));
                     newImg.setAttribute('src', data.data[i].images.fixed_height_still.url);
-                    newImg.addEventListener('click', (element) => {
+                    newImg.addEventListener('click', () => {
                         newImg.setAttribute('src', data.data[i].images.fixed_height.url);
                     })
                 }
