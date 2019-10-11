@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Get Position</title>
+</head>
+<body>
+    <h2>Who's behind the IP?</h2>
+    <lable>IP address</lable>
+    <input type="text">
+    <button onclick="lookUp()">Look Up</button>
+    <br/>
+    <iframe
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src="" allowfullscreen>
+    </iframe>
+
+    <script>
+        let ipUrl = 'http://api.ipapi.com/202.65.196.242?access_key=015134c958145241a3e5b3f62ae706fe';
+        let map = document.querySelector('iframe');
+        function lookUp() {
+            let ip = document.querySelector('input').value;
+            ipUrl = `http://api.ipapi.com/${ip}?access_key=015134c958145241a3e5b3f62ae706fe`;
+            fetch(ipUrl)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    
+                    if(data.success === false || data.city === null) {
+                        alert('IP does not exist!');
+                    } else {
+                        console.log(data.city);
+                        map.setAttribute('src', `https://www.google.com/maps/embed/v1/place?key=AIzaSyAS-HpV459V-m1VsG_Zkbt2sdTeZpF9nOA&q=${data.city}`)
+                    }
+                })
+        }
+    </script>
+</body>
+</html>
