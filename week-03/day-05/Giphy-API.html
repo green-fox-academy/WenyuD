@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Giphy API</title>
+</head>
+<body>
+    <div class="display"></div>
+    <script>
+        let url = "http://api.giphy.com/v1/gifs/search?q=cute&api_key=hgh9UqNwD78GrL1f6nHV0E6xdyitn6Hr";
+        
+        let display = document.querySelector('.display');
+        display.appendChild(document.createElement('ul'));
+
+        fetch(url)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                for(let i = 0; i < 16; i++) {
+                    let newLi = document.querySelector('ul').appendChild(document.createElement('li'));
+                    let newImg = newLi.appendChild(document.createElement('img'));
+                    newImg.setAttribute('src', data.data[i].images.fixed_height_still.url);
+                    newImg.addEventListener('click', (element) => {
+                        newImg.setAttribute('src', data.data[i].images.fixed_height.url);
+                    })
+                }
+            })
+    </script>
+</body>
+</html>
