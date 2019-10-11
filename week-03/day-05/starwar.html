@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Star War</title>
+    <style>
+        .star-war {
+            display: flex;
+        }
+        .name-container {
+            width: 50%;
+        }
+        .movie-container {
+            width: 50%;;
+        }
+    </style>
+</head>
+<body>
+    <label for="input">Enter character name</label><br/>
+    <input type="text" />
+    <button onclick="getName()">Search</button>
+    <div class="star-war">
+        <div class="name-container"></div>
+        <div class="movie-container"></div>
+    </div>
+
+    <script>
+        let search = document.querySelector('button');
+        let searchCharacter = '';
+
+        let inputName = '';
+        function getName() {
+            inputName = document.querySelector('input').value;
+            searchCharacter = `https://swapi.co/api/people/?search=${inputName}`;
+            fetch(searchCharacter)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.count === 0) {
+                        document.querySelector('.name-container').textContent = 'This character does not exist!';
+                    } else {
+                        console.log(data);
+                        
+                        document.querySelector('.name-container').innerHTML = '';
+                        let nameUl = document.createElement('ul');
+
+                        for(let i = 0; i < data.results.length; i++) {
+                            let newName = document.createElement('li');
+                            newName.textContent = data.results[i].name;
+                            newName.addEventListener('click', () => {
+                                let movieUl = document.createElement('ul');
+
+                                for(let j = 0; j < data.results[i].films.length; j++) {
+                                    let newMovieData = data.results[i].films[j];
+                                    fetch(newMovieData)
+                                        .then(response => {
+                                            return response.json();
+                                        })
+                                        .then(data => {
+                                            let newMovie = document.createElement('li');
+                                            newMovie.textContent = data.title;
+                                            console.log(newMovie.textContent);
+                                            movieUl.appendChild(newMovie);
+                                        })
+                                }
+
+                                document.querySelector('.movie-container').appendChild(movieUl);
+                                
+                            });
+                            newName.setAttribute('style', 'cursor: pointer');
+                            nameUl.appendChild(newName);    
+                        }
+
+                        document.querySelector('.name-container').appendChild(nameUl);    
+                    }
+                })
+        }
+    </script>
+</body>
+</html>
