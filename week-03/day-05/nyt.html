@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The New York Times API</title>
+</head>
+<body>
+    <div class="articles"></div>
+    <script>
+        let url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=moon+landing+by+Apollo+11&api-key=kigQFvlAZ3mTCkBwsuS0vAZWzkIJd672';
+
+        fetch(url)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                let articles = document.querySelector('.articles');
+                let listLength = data.response.docs.length;
+                for(let i = 0; i < listLength; i++) {
+                    let newUl = document.createElement('ul');
+                    let headline = document.createElement('li');
+                    let snippet = document.createElement('li');
+                    let publicationDate = document.createElement('li');
+                    let permalink = document.createElement('a');
+
+                    headline.textContent = `Headline: ${data.response.docs[i].headline.main}`;
+                    snippet.textContent = `Snippet: ${data.response.docs[i].snippet}`;
+                    publicationDate.textContent = `Publication Date: ${data.response.docs[i].pub_date}`;
+                    permalink.textContent = 'Link';
+                    permalink.setAttribute('href', `${data.response.docs[i].web_url}`);
+
+                    newUl.appendChild(headline);
+                    newUl.appendChild(snippet);
+                    newUl.appendChild(publicationDate);
+                    newUl.appendChild(permalink);
+                    articles.appendChild(newUl);
+                }
+            })
+    </script>
+</body>
+</html>
