@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>What Is The Time</title>
+
+    <style>
+        span {
+            color: red;
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="loaded"><p></p></h2>
+    <button>Resolve</button>
+    <h2 class="duration"></h2>
+
+    <script>
+        let startTime = Date();
+        let startTimeCount = Date.now();
+        let loaded = document.querySelector('.loaded');
+        let button = document.querySelector('button');
+        let duration = document.querySelector('.duration');
+
+        // simple event listener and callback
+        // loaded.innerHTML = `Script loaded at <span>${startTime}</span>`;
+        // button.addEventListener('click', () => {
+        //     duration.innerHTML = `Button clicked after <span>${((Date.now() - startTimeCount)/1000).toFixed(2)}</span> seconds`;
+        // })
+
+        // creating and initializing a Promise and using then
+        // function promiseFunction(button) {
+        //     loaded.innerHTML = `Script loaded at <span>${startTime}</span>`;
+        //     button.onclick = () => {
+        //         new Promise(
+        //             (resolve, reject) => {
+        //                 let timePassed = ((Date.now() - startTimeCount)/1000).toFixed(2);
+        //                 resolve(timePassed);
+        //             }
+        //         )
+        //         .then (
+        //             res => {
+        //                 duration.innerHTML = `Button clicked after <span>${res}</span> seconds`
+        //             }
+        //         );
+        //     };
+        // }
+        // promiseFunction(button);
+
+        // skip the then with an async method using await
+        function asyncMethod(button) {
+            loaded.innerHTML = `Script loaded at <span>${startTime}</span>`;
+            return new Promise(
+                (resolve, reject) => {
+                    button.onclick = () => {
+                        let timePassed = ((Date.now() - startTimeCount)/1000).toFixed(2);
+                        resolve(timePassed);
+                    }
+                }
+            )
+        }
+
+        async function asyncCall(button) {
+            var res = await asyncMethod(button);
+            duration.innerHTML = `Button clicked after <span>${res}</span> seconds`;
+        }
+
+        asyncCall(button);
+    </script>
+</body>
+</html>
