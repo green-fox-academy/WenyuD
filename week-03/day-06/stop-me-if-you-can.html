@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stop Me If You Can</title>
+</head>
+<body>
+    <button>CANCEL</button>
+
+    <script>
+        let button = document.querySelector('button');
+
+        // simple callback
+        // let msg = setTimeout(
+        //     function() {
+        //         alert('5 seconds passed!');
+        //     }, 5000
+        // );
+        // button.addEventListener('click', () => {
+        //     clearTimeout(msg);
+        // });
+
+        // Solve with a Promise using both the resolve and reject
+        // function promiseMethod(button) {
+        //     return new Promise(
+        //         (resolve, reject) => {
+        //             let msg = setTimeout(
+        //                 resolve, 5000
+        //             );
+        //             button.onclick = () => {
+        //                 clearTimeout(msg);
+        //                 reject();
+        //             }
+        //         }
+        //     )
+        //     .then (
+        //         () => {alert('5 seconds passed!');}
+        //     )
+        //     .catch (
+        //         () => {console.log('reject');}
+        //     )
+        // }
+        // promiseMethod(button);
+
+        // use async / await
+        function promiseMethod(button) {
+            return new Promise(
+                (resolve, reject) => {
+                    let msg = setTimeout(
+                        resolve, 5000
+                    );
+                    button.onclick = () => {
+                        clearTimeout(msg);
+                        reject();
+                    }
+                }
+            )
+        }
+
+        async function asyncCall(button) {
+            try {
+                result = await promiseMethod(button);
+                return result = alert('5 seconds passed!');   
+            } catch {
+                console.log('reject');
+            }
+        }
+
+        asyncCall(button);
+    </script>
+</body>
+</html>
