@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Joke Extension</title>
+</head>
+<body>
+    <div class="container"></div>
+    <button>Gimme a joke</button>
+
+    <script>
+        let jokeUrl = 'http://api.icndb.com/jokes/random';
+        let button = document.querySelector('button');
+        let container = document.querySelector('.container');
+
+        async function gimmeAJoke() {
+            result = await fetch(jokeUrl);
+            result = await result.json();
+            let newJoke = document.createElement('p');
+            newJoke.textContent = result.value.joke;
+            container.appendChild(newJoke);
+        }
+
+        button.onclick = () => {
+            gimmeAJoke();
+        }
+    </script>
+</body>
+</html>
