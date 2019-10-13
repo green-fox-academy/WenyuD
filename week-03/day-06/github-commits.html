@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Github Commits</title>
+</head>
+<body>
+    <h2>Commit messages of <span>someone</span></h2>
+    <div class="container"></div>
+    <button>Get the next repo</button>
+
+    <script>
+        let getRepoUrl = 'https://api.github.com/orgs/green-fox-academy/repos';
+        let container = document.querySelector('.container');
+        let button = document.querySelector('button');
+        let thisRepoName = document.querySelector('span');
+
+        async function getRepoName() {
+            repoNames = await fetch(getRepoUrl);
+            repoNames = await repoNames.json();
+        }
+
+        function* getNext() {
+            yield repoNames.shift();
+        }
+
+        async function getCommits() {
+            container.innerHTML = 'Please wait for response';
+
+            try {
+                thisRepo = getNext().next().value.name;
+                thisRepoName.innerText = thisRepo;
+                
+                commitName = await fetch(`https://api.github.com/repos/green-fox-academy/${thisRepo}/commits`);
+                commitName = await commitName.json();
+                console.log(commitName);
+                
+
+                container.innerHTML = '';
+                
+                commitName.forEach(element => {
+                    let newCommit = document.createElement('p');
+                    newCommit.textContent = element.commit.author.date + ' ' + element.commit.message + ' by ' + element.commit.author.name;
+                    container.appendChild(newCommit);
+                });     
+            } catch {
+                console.log('error!');
+            }
+        }
+
+        getRepoName();
+        button.onclick = () => {
+            getCommits();
+        }
+    </script>
+</body>
+</html>
