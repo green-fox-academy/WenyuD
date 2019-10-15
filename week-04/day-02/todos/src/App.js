@@ -10,7 +10,6 @@ import {
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { StyleSheet, css } from 'aphrodite';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,13 +20,11 @@ class App extends React.Component {
     this.done = this.done.bind(this);
   }
 
-  addItem() {
-    let inputText = document.querySelector('input').value;
-    if(inputText.length <= 3) {
-      alert('The todo text is too short!');
-    } else {
+  addItem(inputText) {
+    if(inputText.length > 3) {
       this.setState({todos: [...this.state.todos, {name: inputText, done: false}]});
-      document.querySelector('input').value = '';
+    } else {
+      alert('This input text is too short!')
     }
   }
 
@@ -55,24 +52,69 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="pageContainer">
-        <h2 className="heading">TODOS</h2>
-        <div className="addItem">
-          <input type="text"/><button className="button-text" onClick={this.addItem}>Add</button>
-        </div>
-        <ul className="toDoContainer">
-          <ToDoList 
-            todos={this.state.todos} 
-            clickDelete={this.delete} 
-            clickDone={this.done}/>
-        </ul>
-        <Router>
-          <Link to='/themes' className='themeSwitcher'>Theme Switcher</Link>
-          <Switch exact path='/themes'><ThemeSwitcher /></Switch>
-        </Router>
-      </div>
+      <Home 
+        addItem = {this.addItem}
+        delete = {this.delete}
+        done = {this.done}
+        todos = {this.state.todos}/>
+      // <div className="pageContainer">
+      //   <h2 className="heading">TODOS</h2>
+      //   <div className="addItem">
+      //     <input type="text"/><button className="button-text" onClick={this.addItem}>Add</button>
+      //   </div>
+      //   <ul className="toDoContainer">
+      //     <ToDoList 
+      //       todos={this.state.todos} 
+      //       clickDelete={this.delete} 
+      //       clickDone={this.done}/>
+      //   </ul>
+      //   <Router>
+      //     <Link to='/themes' className='themeSwitcher'>Theme Switcher</Link>
+      //     <Switch exact path='/themes'><ThemeSwitcher /></Switch>
+      //   </Router>
+      // </div>
     );  
   }
+}
+
+function Home(props) {
+  let todoText = '';
+  return (
+    <div className="pageContainer">
+      <h2 className="heading">TODOS</h2>
+      <div className="addItem">
+        <input 
+          type="text"
+          onChange={event => todoText = event.target.value}/>
+        <button className="button-text" onClick={() => props.addItem(todoText)}>Add</button>
+      </div>
+      <ul className="toDoContainer">
+        {props.todos.map((element, index) => {
+          console.log(element);
+
+          let checkedStyle = element.done ? {color: 'purple'} : {color: '#b8b8b8'};
+
+          return <li key={index} className="todo-item">
+            {element.name}
+            <div>
+              <FontAwesomeIcon icon={ faTrash } className="icon" onClick={() => {props.delete(index)}}/>
+              <FontAwesomeIcon icon={ faCheckCircle } className="icon check" style={checkedStyle} onClick={() => {props.done(index)}}/>
+            </div>
+          </li>
+        })}
+      </ul>
+      <Router>
+        <Link to='/themes' className='themeSwitcher'>Theme Switcher</Link>
+        <Switch exact path='/themes'>
+          <ThemeSwitcher 
+            addItem = {props.addItem}
+            delete = {props.delete}
+            done = {props.done}
+            todos = {props.todos}/>
+        </Switch>
+      </Router>
+    </div>
+  )
 }
 
 // let {theme} = useParams();
@@ -88,33 +130,21 @@ class App extends React.Component {
 
 
 
-function ToDoList(props) {
-  return (
-    <>
-      {props.todos.map((element, index) => {
-        console.log(element, index);
-
-        let checkedStyle = element.done ? {color: 'purple'} : {color: '#b8b8b8'};
-
-        return <li key={index} className="todo-item">
-          {element.name}
-          <div>
-            <FontAwesomeIcon icon={ faTrash } className="icon" onClick={() => {props.clickDelete(index)}}/>
-            <FontAwesomeIcon icon={ faCheckCircle } className="icon check" style={checkedStyle} onClick={() => {props.clickDone(index)}}/>
-          </div>
-        </li>
-      })}
-    </>
-  )
-}
-
-function ThemeSwitcher() {
+function ThemeSwitcher(props) {
   return (
     <div className="themeSwitcherPage">
       <h3 className="themeHeader">Theme Switcher</h3>
       <Router>
         <Link to='/'>Default</Link>
-        <Switch exact path='/'><App /></Switch>
+        <Switch> 
+          <Route exact path='/'>
+            <Home 
+              addItem = {props.addItem}
+              delete = {props.delete}
+              done = {props.done}
+              todos = {props.todos}/>
+          </Route>
+        </Switch>
       </Router>
     </div>
   )
