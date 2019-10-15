@@ -1,0 +1,84 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    min-height: 300px;
+    background-color: aqua;
+}
+.pageContainer {
+    width: 30%;
+    min-width: 400px;
+    min-height: calc(100%-40px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(235, 233, 233);
+    margin: 20px;
+}
+.heading {
+    display: flex;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 64px;
+    font-weight: 300;
+    color: #b8b8b8;
+    width: 100%;
+}
+.addItem {
+    display: flex;
+    flex-direction: row;
+    min-width: 90%;
+}
+    input {
+        flex-grow: 3;
+    }
+    button {
+        flex-grow: 1;
+    }
+  
+  .todo-item {
+    font-family: 'Lato', sans-serif;
+    font-size: 26px;
+    line-height: 2.2;
+    color: #b8b8b8;
+  }
+    .icon {
+        margin-left: 10px;
+        cursor: pointer;
+    }
+  
+  .button-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 26px;
+    color: #ffffff;
+    background-color: purple;
+  }
+
+  ul {
+      list-style-type: none;
+      padding: 0;
+      width: 90%;
+  }
+    li {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .themeSwitcher {
+        font-family: 'Lato', sans-serif;
+        font-size: 26px;
+        line-height: 2.2;
+        color: #b8b8b8;
+        text-decoration: none;
+    }
+
+.themeSwitcherPage {
+    /* position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: -20px;
+    background-color: aqua;
+    display: flex; */
+}
