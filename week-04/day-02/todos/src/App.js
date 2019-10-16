@@ -10,6 +10,7 @@ import {
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { StyleSheet, css } from 'aphrodite';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends React.Component {
     this.addItem = this.addItem.bind(this);
     this.delete = this.delete.bind(this);
     this.done = this.done.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   addItem(inputText) {
@@ -32,6 +34,11 @@ class App extends React.Component {
     if (event.key === 'Enter') {
       this.addItem();
     }
+  }
+
+  handleSubmit(event) {
+    event.target.value = '';
+    event.preventDefault();
   }
 
   delete(index) {
@@ -52,48 +59,78 @@ class App extends React.Component {
 
   render() {
     return (
-      <Home 
-        addItem = {this.addItem}
-        delete = {this.delete}
-        done = {this.done}
-        todos = {this.state.todos}/>
-      // <div className="pageContainer">
-      //   <h2 className="heading">TODOS</h2>
-      //   <div className="addItem">
-      //     <input type="text"/><button className="button-text" onClick={this.addItem}>Add</button>
-      //   </div>
-      //   <ul className="toDoContainer">
-      //     <ToDoList 
-      //       todos={this.state.todos} 
-      //       clickDelete={this.delete} 
-      //       clickDone={this.done}/>
-      //   </ul>
-      //   <Router>
-      //     <Link to='/themes' className='themeSwitcher'>Theme Switcher</Link>
-      //     <Switch exact path='/themes'><ThemeSwitcher /></Switch>
-      //   </Router>
-      // </div>
+      <>
+        <Router>
+        <Switch> 
+          <Route exact path='/'> 
+            <Home 
+              addItem = {this.addItem}
+              delete = {this.delete}
+              done = {this.done}
+              todos = {this.state.todos}
+              handleSubmit = {this.handleSubmit}/>
+          </Route>
+          <Route exact path='/themed/:themes'>
+          <Home 
+              addItem = {this.addItem}
+              delete = {this.delete}
+              done = {this.done}
+              todos = {this.state.todos}
+              handleSubmit = {this.handleSubmit}
+              />
+          </Route>
+          <Route exact path='/themed'>
+            <ThemeSwitcher />
+          </Route>
+        </Switch>
+        </Router>
+      </>
     );  
   }
 }
 
+
+
 function Home(props) {
   let todoText = '';
+  let { themes } = useParams();
+  
+  const styles = StyleSheet.create({
+    pageContainer: {
+      backgroundColor: 'rgb(235, 233, 233)'
+    },
+  
+    pageContainerSuperman: {
+      backgroundColor: 'blue'
+    },
+
+    pageContainerBatman: {
+      backgroundColor: 'yellow'
+    }
+  });
+
+  console.log(themes);
+  
+  const pageContainer = css(
+    (themes === undefined) ? styles.pageContainer : ((themes === 'superman') ? styles.pageContainerSuperman : styles.pageContainerBatman)  
+  )
+  
   return (
-    <div className="pageContainer">
+    <div className={pageContainer}>
       <h2 className="heading">TODOS</h2>
       <div className="addItem">
         <input 
           type="text"
-          onChange={event => todoText = event.target.value}/>
+          onChange={event => todoText = event.target.value}
+          onSubmit={props.handleSubmit}/>          
         <button className="button-text" onClick={() => props.addItem(todoText)}>Add</button>
       </div>
       <ul className="toDoContainer">
         {props.todos.map((element, index) => {
           console.log(element);
-
+          
           let checkedStyle = element.done ? {color: 'purple'} : {color: '#b8b8b8'};
-
+          
           return <li key={index} className="todo-item">
             {element.name}
             <div>
@@ -103,30 +140,11 @@ function Home(props) {
           </li>
         })}
       </ul>
-      <Router>
-        <Link to='/themes' className='themeSwitcher'>Theme Switcher</Link>
-        <Switch exact path='/themes'>
-          <ThemeSwitcher 
-            addItem = {props.addItem}
-            delete = {props.delete}
-            done = {props.done}
-            todos = {props.todos}/>
-        </Switch>
-      </Router>
+      <Link to='/themed' className='themeSwitcher'>Theme Switcher</Link>
     </div>
   )
 }
 
-// let {theme} = useParams();
-// const styles = StyleSheet.create({
-//   if ({theme} === 'themed/superman') {
-
-//   }
-//   pageContainer: {
-//       backgroundColor: 'rgb(235, 233, 233)'
-//   },
-  
-// });
 
 
 
@@ -134,18 +152,9 @@ function ThemeSwitcher(props) {
   return (
     <div className="themeSwitcherPage">
       <h3 className="themeHeader">Theme Switcher</h3>
-      <Router>
         <Link to='/'>Default</Link>
-        <Switch> 
-          <Route exact path='/'>
-            <Home 
-              addItem = {props.addItem}
-              delete = {props.delete}
-              done = {props.done}
-              todos = {props.todos}/>
-          </Route>
-        </Switch>
-      </Router>
+        <Link to='/themed/superman'>Superman</Link>
+        <Link to='/themed/batman'>Batman</Link>
     </div>
   )
 }
