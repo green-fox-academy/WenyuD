@@ -13,7 +13,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images:[greyWhale, humpbackWhaleBreaching, humpbackWhaleFluking, brydesWhale, spermWhaleFluking], 
+      images:[
+        [greyWhale, 'Grey Whale', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'], 
+        [humpbackWhaleBreaching, 'Humpback Whale Breaching', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'],[humpbackWhaleFluking, 'Humpback Whale Fluking', 'Nibh nisl condimentum id venenatis a condimentum. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Aliquet eget sit amet tellus.'], 
+        [brydesWhale, 'Bryde\'s Whale', 'In vitae turpis massa sed elementum tempus egestas. Nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque. Eget arcu dictum varius duis at consectetur.'], 
+        [spermWhaleFluking, 'Sperm Whale Fluking', 'Scelerisque viverra mauris in aliquam sem. Neque volutpat ac tincidunt vitae semper quis lectus. Sit amet volutpat consequat mauris nunc congue. Libero enim sed faucibus turpis in eu mi bibendum.']
+      ], 
       imageCalled:[0]
       };
     this.viewImage = this.viewImage.bind(this);
@@ -22,7 +27,12 @@ class App extends React.Component {
   }
 
   viewImage(img) {
-    let imgIndex = this.state.images.indexOf(img);
+    let imgIndex;
+    this.state.images.forEach((element, index) => {
+      if(element[0] === img) {
+        return imgIndex = index;
+      }
+    })
     this.setState({imageCalled: [imgIndex]});
   }
 
@@ -69,35 +79,57 @@ class App extends React.Component {
 }
 
 function ImageViewr(props) {
-  console.log(props.imageCalled[0])
+  // console.log(props.imageCalled[0])
   const styles = StyleSheet.create({
     imageViewContainerStyle: {
         height: '70vh',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        boxShadow: '2px 4px 8px #2d2d2d'
     },
-
+    imageContainerStyle: {
+      height: '100%',
+      width: '124.44vh',
+      position: 'relative'
+    },
     imageViewStyle: {
       height: '100%',
-      width: 'auto'
+      width: '100%'
+    },
+    imageDescriptionStyle: {
+      position: 'absolute',
+      bottom: '0px',
+      color: '#ffffff',
+      backgroundColor: 'rgba(66,62,60,0.7)'
+    },
+    imageDescriptionTitleStyle: {
+      padding: '0 2rem 0 2rem'
+    },
+    imageDescriptionContentStyle: {
+      padding: '0 2rem 0 2rem'
+    },
+
+    arrowContainer: {
+      height: '100%',
+      width: '4rem',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(#ffffff, #B5B5B5)'
     },
 
     arrowLeftDefaultStyle: {
-      marginRight: '2em',
       cursor: 'pointer'
     },
     arrowLeftDisableStyle: {
-      marginRight: '2em',
       opacity: '0.2'
     },
 
     arrowRightDefaultStyle: {
-      marginLeft: '2em',
       transform: 'rotate(180deg)',
       cursor: 'pointer'
     },
     arrowRightDisableStyle: {
-      marginLeft: '2em',
       transform: 'rotate(180deg)',
       opacity: '0.2'
     }
@@ -111,33 +143,55 @@ function ImageViewr(props) {
   )
   return (
     <div className={css(styles.imageViewContainerStyle)}>
-      <Arrow 
-        className={arrowLeftStyle} 
-        onClick={() => {props.goLeft(props.imageCalled)}}
-      />
+      <div className={css(styles.arrowContainer)}>
+        <Arrow 
+          className={arrowLeftStyle} 
+          onClick={() => {props.goLeft(props.imageCalled)}}
+        />
+      </div>
+      <div className={css(styles.imageContainerStyle)} id="imageContainer">
         <img 
           className={css(styles.imageViewStyle)} 
-          src={props.images[props.imageCalled]} 
-          alt=""/>
-      <Arrow 
-        className={arrowRightStyle} 
-        onClick={() => {props.goRight(props.imageCalled)}}
-      />
+          src={props.images[props.imageCalled][0]} 
+          alt=""
+        />
+        <div className={css(styles.imageDescriptionStyle)} id="imageDescription">
+          <h3 className={css(styles.imageDescriptionTitleStyle)}>{props.images[props.imageCalled][1]}</h3>
+          <p className={css(styles.imageDescriptionContentStyle)}>{props.images[props.imageCalled][2]}</p>
+        </div>
+      </div>
+      <div className={css(styles.arrowContainer)}>
+        <Arrow 
+          className={arrowRightStyle} 
+          onClick={() => {props.goRight(props.imageCalled)}}
+        />
+      </div>
     </div>
   )
 }
 
 function Thumbnails(props) {
-  const thumbnailStyle = {
-    width: '5rem',
-    height: '5rem',
-    margin: '2em 1em 0 1em',
-    cursor: 'pointer'
-  }
+  const styles = StyleSheet.create({
+    thumbnailStyle: {
+      width: '4rem',
+      height: '4rem',
+      margin: '2rem 1rem 0 1rem',
+      borderRadius: '50%',
+      cursor: 'pointer',
+      transition: '0.5s',
+      transitionTimingFunction: 'ease-in-out',
+      ':hover': {
+        marginTop: '0.5rem',
+        marginBottom: '0.5rem',
+        borderRadius: '0%'
+      }
+    }
+  })
+
   return (
     <>
       {props.images.map((element, index) => {
-        return <img src={element} key={index} style={thumbnailStyle} onClick={() => props.viewImage(element)}/>
+        return <img src={element[0]} key={index} className={css(styles.thumbnailStyle)} onClick={() => props.viewImage(element[0])} alt=""/>
       })}
     </>
   )
