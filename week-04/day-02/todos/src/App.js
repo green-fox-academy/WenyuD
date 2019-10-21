@@ -108,8 +108,6 @@ function Home(props) {
       backgroundColor: 'yellow'
     }
   });
-
-  console.log(themes);
   
   const pageContainer = css(
     (themes === undefined) ? styles.pageContainer : ((themes === 'superman') ? styles.pageContainerSuperman : styles.pageContainerBatman)  
