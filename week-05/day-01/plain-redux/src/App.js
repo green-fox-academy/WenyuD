@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import './App.css';
-import { createStore } from 'redux';
-import Reducer from './Reducer';
 
 import Increaser from './components/increaser';
 import Decreaser from './components/decreaser';
 import Resetter from './components/resetter';
+import Setter from './components/setter';
 
 function App() {
   return (
@@ -14,6 +12,8 @@ function App() {
       <Increaser />
       <Decreaser />
       <Resetter />
+      <Setter />
+      
     </div>
   );
 }

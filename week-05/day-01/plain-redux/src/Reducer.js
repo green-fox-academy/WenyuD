@@ -52,6 +52,8 @@ function Reducer(state = initialState, action) {
             tags: []
         }
     }
+
+    return state;
 }
 
 

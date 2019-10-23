@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Decreaser = (props) => {
-    console.log(props)
     return (
         <div className="decreaser">
             <h2>The Decreaser</h2>
