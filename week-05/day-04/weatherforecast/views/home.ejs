@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <% forecasts.forEach(element => {%>
+        <div class='card'>
+            <div>
+                <h2><%= element.city %></h2>
+                <p><%= element.location %></p>
+            </div>
+            <h1><%= element.weather[0].temp %>&deg;C</h1>
+        </div>
+    <%}) %>
+</body>
+</html>
