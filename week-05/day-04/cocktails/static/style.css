@@ -1,0 +1,22 @@
+ul {
+    display: flex;
+    list-style-type: none;
+    text-transform: uppercase;
+    padding: 0;
+}
+ul > li {
+    margin: 0 1em 0 0;
+}
+
+th {
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:not(:first-child):nth-child(n) {
+    background-color: #d2d2d2;
+}
+tr:not(:first-child):nth-child(2n) {
+    background-color: #e2e2e2;
+}
