@@ -16,5 +16,7 @@ update todos
 set done = true 
 where taskName = "Eat lunch";
 
+select * from todos;
+
 delete from todos
 where taskName = "Sleep early";
