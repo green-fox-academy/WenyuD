@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT;
 
 let count = 0;
+
+app.get('/', (req, res) => {
+    res.write('works!')
+    res.end();
+})
 
 app.get('/greeting', (req, res) => {
     let name = req.query.name;
@@ -17,3 +22,5 @@ app.get('/greeting', (req, res) => {
 })
 
 app.listen(PORT, () => {})
+
+// This app is running on https://ghoulish-cat-69604.herokuapp.com/
