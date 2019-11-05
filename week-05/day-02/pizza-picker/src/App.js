@@ -17,7 +17,12 @@ class App extends React.Component {
 
   handleChange(event) {
     const {name, value, type} = event.target;
-    type === 'checkbox' ? this.setState({topping: [...this.state.topping, value]}) : (type === 'radio' ? this.setState({cut: value}) : this.setState({[name]: value}));
+    type === 'checkbox' ? 
+      this.setState({topping: [...this.state.topping, value]}) : 
+      (type === 'radio' ? 
+        this.setState({cut: value}) : 
+        this.setState({[name]: value})
+      );
   }
 
   handleSubmit(event) {

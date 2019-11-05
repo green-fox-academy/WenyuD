@@ -19,7 +19,9 @@ class App extends React.Component {
 
   handleChange(event) {
     const {name, value, type} = event.target;
-    type === 'checkbox' ? this.setState({dietaryRestriction: [...this.state.dietaryRestriction, value]}) : this.setState({[name]: value});
+    type === 'checkbox' ? 
+      this.setState({dietaryRestriction: [...this.state.dietaryRestriction, value]}) : 
+      this.setState({[name]: value});
   }
 
   handleSubmit(event) {
