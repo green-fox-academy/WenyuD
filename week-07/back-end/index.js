@@ -1,11 +1,13 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const PORT = process.env.PORT;
 const db = require('./static/db.js');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 
 app.get('/', async (req, res) => {
@@ -25,7 +27,7 @@ app.get('/posts', async (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(data));
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send({error});
     }
 });
 
