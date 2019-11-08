@@ -3,30 +3,27 @@ import {connect} from 'react-redux';
 import fetchPosts from '../actions/fetchPosts';
 import upvote from '../image/upvote.png'; 
 import downvote from '../image/downvote.png';
-import { upvoteHandler, downvoteHandler } from '../actions/handleVoter';
+import { upvoteHandler, downvoteHandler } from '../actions/handleUpvoter';
 
 
 const Posts = (props) => {
-    useEffect(() => props.fetchPosts(), []);
-
     let handleVote = (event) => {
         if (event.target.alt === 'upvote') {
-            props.upvote(props.post_id);
+            props.upvote(props.posts[Number(event.target.dataset.key)-1]);
         } else if (event.target.alt === 'downvote') {
-            props.downvote(props.post_id);
+            props.downvote(props.posts[Number(event.target.dataset.key)-1]);
         }
     }
 
     return (
         <>
-            {console.log(props.posts)}
             {props.posts.map((element, index) => {
                 return (
                     <div key={index}>
                         <div className="vote">
-                            <img key={element.post_id} src={upvote} alt="upvote" onClick={handleVote}/>
+                            <img data-key={element.post_id} src={upvote} alt="upvote" onClick={handleVote}/>
                             {element.post_score}
-                            <img key={element.post_id} src={downvote} alt="downvote" onClick={handleVote}/>
+                            <img data-key={element.post_id} src={downvote} alt="downvote" onClick={handleVote}/>
                         </div>
                         <div>
                             <h3>{element.post_title}</h3>

@@ -19,4 +19,4 @@ let promisedQuery = (sqlString, queryInput) =>
 
 module.exports = {
     promisedQuery
-  }
+}

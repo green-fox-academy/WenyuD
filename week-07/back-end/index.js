@@ -73,9 +73,16 @@ app.put('/posts/:id/upvote', async (req, res) => {
             sqlString = 'UPDATE posts SET post_score = ? WHERE post_id = ?;';
             await db.promisedQuery(sqlString, [newScore, queryInput]);
 
+            sqlString = 'SELECT * FROM posts WHERE post_id = ?;'
+            data = await db.promisedQuery(sqlString, [queryInput]);
+
+            var response = {
+                posts: data
+            }
+
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.end('Upvote updated');
+            res.end(JSON.stringify(response));
         } catch (error) {
             res.status(400).send('Database Error');
         }
@@ -99,9 +106,16 @@ app.put('/posts/:id/downvote', async (req, res) => {
             sqlString = 'UPDATE posts SET post_score = ? WHERE post_id = ?;';
             await db.promisedQuery(sqlString, [newScore, queryInput]);
 
+            sqlString = 'SELECT * FROM posts WHERE post_id = ?;'
+            data = await db.promisedQuery(sqlString, [queryInput]);
+
+            var response = {
+                posts: data
+            }
+
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json');
-            res.end('Downvote updated');
+            res.end(JSON.stringify(response));
         } catch (error) {
             res.status(400).send('Database Error');
         }

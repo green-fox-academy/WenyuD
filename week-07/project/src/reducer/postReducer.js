@@ -17,10 +17,10 @@ export default function postReducer (state = initState, action) {
             pending: false
         }
     }
-    else if (action.type === 'UPVOTE' || action.type === 'DOWNVOTE') {
+    else if (action.type === 'UPVOTED' || action.type === 'DOWNVOTE' || action.type === 'NEW_POST_SUBMIT') {
         return {
             ...state,
-            posts: action.posts
+            posts: action.updatedPost
         }
     }
     return state;
